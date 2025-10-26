@@ -1,0 +1,9 @@
+    <div class="testimonials-container">
+{% for item in ticketTestimonials %}
+        <div  class="testimonial-card">
+          <p class="testimonial-text">"{{item.testimonial}}"</p>
+          <h4 class="testimonial-name">{{item.name}}</h4>
+          <p class="testimonial-event">{{item.event}}</p>
+        </div>
+         {% endfor %}
+    </div>
