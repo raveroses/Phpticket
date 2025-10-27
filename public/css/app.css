@@ -344,6 +344,7 @@ header {
     height: 820px;
     padding: 10px 1px;
     gap: 0;
+    text-align: center;
   }
   .hero-section .circle {
     width: 50px;
