@@ -20,19 +20,4 @@ spl_autoload_register(function ($class) {
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader);
 
-echo $twig->render('dashboard.html.twig',[
-     'sidebardetails' => [
-   [ 
-     'icon'=> '<i class="fa-solid fa-list-check"></i>',
-      'names'=> ' Ticket List',
-   ],
-   [ 
-     'icon'=>'<i class="fa-solid fa-square-plus"></i>' ,
-      'names'=> 'Create Ticket',
-   ],
-   [ 
-     'icon'=> '<i class="fa-solid fa-arrow-right-from-bracket"></i>',
-      'names'=> 'Log out',
-   ],
-  ]
-]);
+echo $twig->render('dashboard.html.twig');

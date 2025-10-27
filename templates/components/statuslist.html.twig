@@ -1,59 +1,25 @@
+{% set safeList = ticketCreationList is defined and ticketCreationList is iterable ? ticketCreationList : [] %}
 
+{% set totalTickets = safeList|length %}
+{% set openTickets = safeList|filter(item => item.status == "open")|length %}
+{% set resolvedTickets = safeList|filter(item => item.status == "closed")|length %}
 
-    <section className="status-list">
-      {# {statusLists.map((status, index) => ( #}
-        {# <div key={index} className="status-item"> #}
+{% set statuslist = [
+    { label: "Total Tickets", value: totalTickets },
+    { label: "Open Tickets", value: openTickets },
+    { label: "Resolved Tickets", value: resolvedTickets }
+] %}
+
+    <section class="status-list">
+      {% for status in statuslist%}
         <div  class="status-item">
-          {# <p>{{status.label}}</p>
-          <h3>{{status.value}}</h3> #}
-
-          <p>Hekk</p/>
-          <h3>hekek</h3>
+          <p>{{status.label}}</p>
+          <h3>{{status.value}}</h3>
         </div>
-      {# ))} #}
+  {% endfor %}
     </section>
-  {# );
-}; #}
-
-<script>
-
-{# const StatusList = ({ ticketCreationList }) => {
-  const safeList = Array.isArray(ticketCreationList) ? ticketCreationList : []; #}
 
 
-// <?php
-// $statusLists = [
-//     [ 
-//         'label' => 'Total Tickets', 
-//         'value' => count($safeList)
-//     ],
-//     [
-//         'label' => 'Open Tickets',
-//         'value' => count(array_filter($safeList, function ($item) {
-//             return $item['status'] === 'open';
-//         }))
-//     ],
-//     [
-//         'label' => 'Resolve Tickets',
-//         'value' => count(array_filter($safeList, function ($item) {
-//             return $item['status'] === 'closed';
-//         }))
-//     ],
-// ];
-// ?>
 
 
-//   const statusLists = [
-//     { label: "Total Tickets", value: safeList.length },
-//     {
-//       label: "Open Tickets",
-//       value: safeList.filter((item) => item.status === "open").length,
-//     },
 
-//     {
-//       label: "Resolve Tickets",
-//       value: safeList.filter((item) => item.status === "closed").length,
-//     },
-//   ];
-
-</script>

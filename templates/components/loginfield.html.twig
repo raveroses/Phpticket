@@ -1,22 +1,27 @@
+{% set userLogin ={
+userName:" ",
+password:"" 
+}%}
+
+
     {# <form class="signupForm" onSubmit={handleSubmit}> #}
     <form class="signupForm" >
       <div>
-        <label htmlFor="email">Email</label>
+        <label for="email">Email</label>
         <input
           type="email"
           id="email"
-          ="email"
-          {# value={userLogin.email}
-          onChange={handleUserOnchange} #}
+          name="email"
+     value="{{userLogin.email}}"
         />
       </div>
       <div>
-        <label htmlFor="Password">Password</label>
+        <label for="Password">Password</label>
         <input
           type="password"
           id="password"
-          ="password"
-          {# value={userLogin.password}
+          name="password"
+           value="{{userLogin.password}}"
           onChange={handleUserOnchange} #}
         />
       </div>
@@ -28,79 +33,65 @@
 
 
 <script>
+const inputField= document.querySelectorAll("form div input")
+const inputForm= document.querySelector("form")
+let userLogin= {}
+let fetchUserDetail;
+ 
+      const retreiveValue = localStorage.getItem("store");
+      if(retreiveValue){
+       fetchUserDetail =  JSON.parse(retreiveValue)
+      }else{
+      userLogin= {
+            email: "",
+            password: "",
+          };
+      }
+      console.log("fetchUserDetail",fetchUserDetail)
+        
+  
+ 
+
+  const handleUserOnchange = (e) => {
+    const { name, value } = e.target;
+   userLogin[name]= value.trim()
+   console.log(userLogin)
+  };
 
 
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { ToastContainer, toast, Bounce } from "react-toastify";
-
-// const LoginField = () => {
-//   const navigate = useNavigate();
-//   const [userLogin, setUserLogin] = useState(() => {
-//     try {
-//       const receive = localStorage.getItem("Loginstore");
-//       return receive
-//         ? JSON.parse(receive)
-//         : {
-//             email: "",
-//             password: "",
-//           };
-//     } catch (error) {
-//       toast.error(error.message);
-//       return {
-//         email: "",
-//         password: "",
-//       };
-//     }
-//   });
-
-//   const [fetchUserDetail] = useState(() => {
-//     try {
-//       const receive = localStorage.getItem("store");
-//       return receive
-//         ? JSON.parse(receive)
-//         : {
-//             email: "",
-//             password: "",
-//           };
-//     } catch (error) {
-//       toast.error(error.message);
-//       return {
-//         email: "",
-//         password: "",
-//       };
-//     }
-//   });
-//   const handleUserOnchange = (e) => {
-//     const { , value } = e.target;
-//     setUserLogin((prev) => ({ ...prev, []: value }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     if (
-//       !userLogin.email ||
-//       userLogin.email !== fetchUserDetail.email ||
-//       !userLogin.email ||
-//       userLogin.password !== fetchUserDetail.password
-//     ) {
-//       toast.error("Please, check your fields");
-//       return;
-//     }
-
-//     localStorage.setItem("Loginstore", JSON.stringify(userLogin));
-//     toast.success("Login successfully");
-//     setUserLogin({
-//       email: "",
-//       password: "",
-//     });
-//     setTimeout(() => {
-//       navigate("/");
-//     }, 1000);
-//   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
 
+    if (
+      !userLogin.email ||
+      userLogin.email !== fetchUserDetail.email ||
+      !userLogin.password ||
+      userLogin.password !== fetchUserDetail.password
+    ) {
+      alert("Please, check your fields");
+      return;
+    }
 
+    localStorage.setItem("Loginstore", JSON.stringify(userLogin));
+    alert("Login successfully");
+
+    userLogin= {
+      email: "",
+      password: "",
+    };
+
+
+    setTimeout(() => {
+       window.location.href ="index.php?page=dashboard"
+      
+    }, 1000);
+  };
+
+
+inputField.forEach(input => {
+  input.addEventListener("change", handleUserOnchange)
+});
+inputForm.addEventListener("submit",handleSubmit)
 
 </script>

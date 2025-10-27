@@ -5,6 +5,7 @@
     <section class="sidebar-container">
       {# <StatusList ticketCreationList={ticketCreationList} /> #}
       {% include 'components/statuslist.html.twig' %}
+
       <div class="second-sidebar-container">
         <div class="sidebar">
           <div class="top">
@@ -13,29 +14,16 @@
             </div>
             <h2>Dashboard</h2>
           </div>
-
-          {# <Sidebar isOpen={isOpen} handlleOpeningTab={handlleOpeningTab} /> #}
 {% include 'components/sidebar.html.twig' %}
-      
         </div>
 
         <div class="creation">
+        <div id="ticketCreationDiv">
 {% include 'components/ticketcreation.html.twig' %}
+        </div>
+        <div id="ticketListDiv">
 {% include 'components/ticketlist.html.twig' %}
-
-          {# {isOpen === "Create Ticket" ? (
-            <TicketCreeation
-              ticketCreation={ticketCreation}
-              handleTicketOnchange={handleTicketOnchange}
-              handleTicketCreation={handleTicketCreation}
-            />
-          ) : (
-            <TicketList
-              ticketCreationList={ticketCreationList}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            /> #}
-          {# )} #}
+</div>
         </div>
       </div>
 
@@ -44,85 +32,190 @@
 
 
     <script> 
-    
-//   const [ticketCreation, setTicketCreation] = useState({
-//     title: "",
-//     description: "",
-//     status: "",
-//   });
-//   const [ticketCreationList, setTicketCreationList] = useState(() => {
-//     try {
-//       const receive = localStorage.getItem("store");
-//       const parsed = receive ? JSON.parse(receive) : [];
-//       return Array.isArray(parsed) ? parsed : [];
-//     } catch (error) {
-//       console.error("Error parsing localStorage:", error);
-//       return [];
-//     }
-//   });
-//   const handleTicketOnchange = (e) => {
-//     const { name, value } = e.target;
-//     setTicketCreation((prev) => ({ ...prev, [name]: value }));
-//   };
-//   const [editIndex, setEditIndex] = useState(null);
+ 
+ const sidebardetails=[
+  { 
+     icon: '<i class="fa-solid fa-list-check"></i>',
+     names: ' Ticket List',
+   },
+{ 
+     icon:'<i class="fa-solid fa-square-plus"></i>' ,
+     names: 'Create Ticket',
+   },
+{ 
+     icon: '<i class="fa-solid fa-arrow-right-from-bracket"></i>',
+     names: 'Log out',
+   },
+  ]
 
-//   const handleTicketCreation = (e) => {
-//     e.preventDefault();
 
-//     if (
-//       !ticketCreation.title ||
-//       !ticketCreation.description ||
-//       !ticketCreation.status
-//     ) {
-//       toast.error("please,check all fields");
-//       return;
-//     }
+  
+const inputValue= document.querySelectorAll("form div input");
+const createBtn= document.querySelector("#createBtn")
+const selectValue= document.querySelector("form div select")
+const list= ["Open", "Close", "In progress"]
+let ticketCreationList = JSON.parse(localStorage.getItem("ticketListStore")) || [];
+let editIndex= null;
+let ticketCreation ={
+    title: "",
+    description: "",
+    status: "",
+  };
 
-//     let updatedList;
 
-//     if (editIndex !== null) {
-//       updatedList = ticketCreationList.map((ticket, index) =>
-//         index === editIndex ? ticketCreation : ticket
-//       );
-//       setEditIndex(null);
-//       toast.success("Ticket updated successfully");
-//     } else {
-//       updatedList = [...ticketCreationList, ticketCreation];
+  const handleTicketOnchange = (e) => {
+    const { name, value } = e.target;
+   ticketCreation[name]= value.trim() 
+   console.log(ticketCreation)
+  };
 
-//       console.log(updatedList);
-//     }
-//     localStorage.setItem("store", JSON.stringify(updatedList));
-//     setTicketCreationList(updatedList);
-//     setTicketCreation({
-//       title: "",
-//       description: "",
-//       status: "",
-//     });
-//   };
 
-//   const handleDelete = (value) => {
-//     const updatedList = ticketCreationList.filter(
-//       (ticket) => ticket.title !== value
-//     );
-//     toast.success("Ticket Deleted successfully");
-//     setTicketCreationList(updatedList);
-//     localStorage.setItem("store", JSON.stringify(updatedList));
-//   };
 
-//   const handleEdit = (index) => {
-//     const ticketToEdit = ticketCreationList[index];
-//     toast.success("Ticket Edited successfully");
-//     setTicketCreation(ticketToEdit);
-//     setEditIndex(index);
-//   };
 
-//   const [isOpen, setIsOpen] = useState("Create Ticket");
-//   const handlleOpeningTab = (value) => {
-//     setIsOpen(value);
-//   };
 
-    
-    
+
+
+
+  const handleTicketCreation = () => {
+ 
+    if (
+      !ticketCreation.title ||
+      !ticketCreation.description ||
+      !ticketCreation.status
+    ) {
+      alert("please,check all fields");
+      return;
+    }
+
+    let updatedList;
+
+    if (editIndex !== null) {
+      updatedList = ticketCreationList.map((ticket, index) =>
+        index === editIndex ? ticketCreation : ticket
+      );
+      editIndex= null;
+      alert("Ticket updated successfully");
+    } else {
+
+      updatedList = [...ticketCreationList, ticketCreation];
+
+    }
+    localStorage.setItem("ticketListStore", JSON.stringify(updatedList));
+    ticketCreationList= updatedList;
+    ticketCreation= {
+      title: "",
+      description: "",
+      status: "",
+    };
+  };
+
+console.log(ticketCreationList)
+document.addEventListener("DOMContentLoaded", () => {
+  const createBtn = document.querySelector("#createBtn");
+  createBtn.addEventListener("click", handleTicketCreation);
+});
+
+inputValue.forEach(input => {
+  input.addEventListener("change", handleTicketOnchange)
+});    
+
+selectValue.addEventListener("change", handleTicketOnchange)
+
+
+
+const handleDelete = (value) => {
+    const updatedList = ticketCreationList.filter(
+      (ticket) => ticket.title !== value
+    );
+    alert("Ticket Deleted successfully");
+    ticketCreationList= updatedList;
+    localStorage.setItem("ticketListStore", JSON.stringify(updatedList));
+  };
+
+  const handleEdit = (index) => {
+    const ticketToEdit = ticketCreationList[index];
+    alert("Ticket Edited successfully");
+    ticketCreation= ticketToEdit;
+    editIndex= index;
+  };
+
+ 
+  const safeList = Array.isArray(ticketCreationList) ? ticketCreationList : [];
+
+
+
+  const statusLists = [
+    { label: "Total Tickets", value: safeList.length },
+    {
+      label: "Open Tickets",
+      value: safeList.filter((item) => item.status === "open").length,
+    },
+
+    {
+      label: "Resolve Tickets",
+      value: safeList.filter((item) => item.status === "closed").length,
+    },
+  ];
+
+// 
+
+// Sidebar container
+const sidebarContainer = document.querySelector(".sidebar-components");
+
+
+const ticketCreationDiv = document.querySelector("#ticketCreationDiv");
+const ticketListDiv = document.querySelector("#ticketListDiv");
+let isOpen = "Create Ticket";
+
+
+
+function renderTab() {
+  if (isOpen === "Create Ticket") {
+    ticketCreationDiv.style.display = "block";
+    ticketListDiv.style.display = "none";
+  } else {
+    ticketCreationDiv.style.display = "none";
+    ticketListDiv.style.display = "block";
+  }
+}
+
+renderTab();
+
+
+
+
+// Logout function
+const handleLogout = () => {
+  localStorage.removeItem("Loginstore");
+  window.location.href = "index.php?page=signup";
+};
+
+
+sidebardetails.forEach((item) => {
+  const div = document.createElement("div");
+  div.classList.add("sidebar-item");
+  div.setAttribute("data-tab", item.names);
+
+  div.innerHTML = `
+    <div class="sidebar-flex" style="${item.names === 'Log out' ? 'margin-top:20px; color:white; background-color:red; border:none;' : ''}">
+      <div class="icon">${item.icon}</div>
+      <h3>${item.names}</h3>
+    </div>
+  `;
+
+  div.addEventListener("click", () => {
+    if (item.names === 'Log out') {
+      handleLogout();
+    } else {
+      isOpen = item.names;
+      renderTab();
+    }
+  });
+
+  sidebarContainer.appendChild(div);
+});
+
+
     
     </script>
 

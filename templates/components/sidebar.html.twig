@@ -1,39 +1,54 @@
-   <section class="sidebar-components">
-   {% for items in sidebardetails %}
-
-         <div
-      
-        class="sidebar-flex" 
-        {# style={
-          items.names === "Log out"
-            ? {
-                marginTop: "0px",
-                color: "white",
-                backgroundColor: "red",
-                border: "none",
-              }
-            : {}
-        }
-        onClick={() => {
-          if (items.names === "Log out") {
-            handleLogout();
-          }
-
-          handlleOpeningTab(items.names);
-        }} #}
-      >
-        <div class="icon">{{items.icon|raw}}</div>
-        <h3>{{items.names}}</h3>
-      </div>
-{% endfor %}
-   </section>
+{# {% set sidebardetails = [
+  { icon: '<i class="fa-solid fa-list-check"></i>', names:'Ticket List' },
+  { icon:'<i class="fa-solid fa-square-plus"></i>', names: 'Create Ticket' },
+  { icon: '<i class="fa-solid fa-arrow-right-from-bracket"></i>', names: 'Log out' }
+] %}
+  #}
+   <section class="sidebar-components"></section>
 
 
    <script>
-//     const handleLogout = () => {
-//     localStorage.removeItem("Loginstore");
-//     navigate("/login");
-//   };
    
+
+
+  //   const sidebardetail = {{ sidebardetails|json_encode|raw }};
+
+  // const sidebarContainer = document.querySelector(".sidebar-components");
+
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   sidebardetail.forEach((item) => {
+  //     const div = document.createElement("div");
+  //     div.classList.add("sidebar-item");
+  //     div.setAttribute("data-tab",item.names)
+
+
+
+  //     let style = "";
+  //     if (item.names === "Log out") {
+  //       style = "margin-top:20px; color:white; background-color:red; border:none;";
+  //     }
+
+  //     div.innerHTML = `
+  //       <div class="sidebar-flex" style="${style}">
+  //         <div class="icon">${item.icon}</div>
+  //         <h3>${item.names}</h3>
+  //       </div>
+  //     `;
+  //     div.addEventListener("click", () => {
+  //       if (item.names === "Log out") {
+  //       handleLogout()
+  //         console.log("Opening tab:", item.names); 
+  //       }
+  //     });
+
+  //     sidebarContainer.appendChild(div);
+  //   });
+  // });   
+
+
+  //   const handleLogout = () => {
+  //   localStorage.removeItem("Loginstore");
+  // window.location.href= "index.php?page=signup"
+  // };
    </script>
 

@@ -1,19 +1,15 @@
-
-      <div class="ticket-list" key={index}>
-        <h2>Hello</h2>
-        <p>yes</p>
-        {# <h2>{ticket.title}</h2>
-        <p>{ticket.description}</p> #}
+{% set ticketList = ticketCreationList is defined and ticketCreationList is iterable ? ticketCreationList : [] %}
+   <section class="ticket-list-container">
+  {% for ticket in ticketList %}
+    <div class="ticket-list">
+      
+        <h2>{{ticket.title}}</h2>
+        <p>{{ticket.description}}</p>
 
         <p>
-          Status:
-          <span class={`status-badge status-open`}>
-            {# {ticket.status.replace("_", " ")} #}
-            Open
+          Status: <span class={`status-badge status-${{ticket.status}}`}>
+            {{ticket.status.replace("_", " ")}}
           </span>
-          {# <span class={`status-badge status-${ticket.status}`}>
-            {ticket.status.replace("_", " ")}
-          </span> #}
         </p>
 
         <div class="actn-btn">
@@ -27,18 +23,9 @@
           </button>
         </div>
       </div>
-    
-   <section class="ticket-list-container">
- yes</section>;
+ {% endfor %}
+  
+ </section>
 
 
-<script> 
-
-
-// const TicketList = ({ ticketCreationList, handleDelete, handleEdit }) => {
-//     const safeList = Array.isArray(ticketCreationList) ? ticketCreationList : [];
-//   const ticketListing = safeList.map((ticket, index) => {
-//     return (
-
-
-        </script>
+{# // <script>   </script> #}

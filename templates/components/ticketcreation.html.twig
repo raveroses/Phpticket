@@ -1,7 +1,9 @@
+{%  set list = ["Open", "Close", "In progress"] %}
+{% set currentStatus = "Open" %}
+{# {% set isOpen="" %} #}
    <section>
       <h2>Create your Ticket</h2>
 
-      {# <form class="signupForm" onSubmit={handleTicketCreation}> #}
       <form class="signupForm">
         <div>
           <label htmlFor="title">Title</label>
@@ -9,8 +11,7 @@
             type="text"
             id="title"
             name="title"
-            {# value={ticketCreation.title}
-            onChange={handleTicketOnchange} #}
+             value="{{ticketCreation.title}}"
           />
         </div>
         <div>
@@ -19,24 +20,24 @@
             type="text"
             id="description"
             name="description"
-            {# value={ticketCreation.description}
-            onChange={handleTicketOnchange} #}
+            value="{{ticketCreation.description}}"
           />
         </div>
         <div>
           <select
             name="status"
             id="status"
-            {# onChange={handleTicketOnchange}
-            value={ticketCreation.status} #}
+            value="{{ticketCreation.status}}"
           >
-            {# {listStatus} #}
-    <option value="open" >
-            
+    {% for eachList in list%}
+    <option value="{{eachList}}" "{{eachList == currentStatus ? "selected" : "" }}" >
+    {{eachList}}
+    </option>
+    {% endfor %}
           </select>
         </div>
         <div>
-          <button type="submit">Create</button>
+          <button type="button" id="createBtn">Create</button>
         </div>
       </form>
     </section>
@@ -44,21 +45,6 @@
 
 <script>
 
-// import { useState } from "react";
 
-// const TicketCreeation = ({
-//   ticketCreation,
-//   handleTicketOnchange,
-//   handleTicketCreation,
-// }) => {
-//   const [list] = useState(["Open", "Close", "In progress"]);
-
-//   const listStatus = list.map((status, index) => {
-//     return (
-//       <option key={index} value={status} selected={status === "Open"}>
-//         {status}
-//       </option>
-//     );
-//   });
 
 </script>
