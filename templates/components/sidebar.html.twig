@@ -1,0 +1,39 @@
+   <section class="sidebar-components">
+   {% for items in sidebardetails %}
+
+         <div
+      
+        class="sidebar-flex" 
+        {# style={
+          items.names === "Log out"
+            ? {
+                marginTop: "0px",
+                color: "white",
+                backgroundColor: "red",
+                border: "none",
+              }
+            : {}
+        }
+        onClick={() => {
+          if (items.names === "Log out") {
+            handleLogout();
+          }
+
+          handlleOpeningTab(items.names);
+        }} #}
+      >
+        <div class="icon">{{items.icon|raw}}</div>
+        <h3>{{items.names}}</h3>
+      </div>
+{% endfor %}
+   </section>
+
+
+   <script>
+//     const handleLogout = () => {
+//     localStorage.removeItem("Loginstore");
+//     navigate("/login");
+//   };
+   
+   </script>
+

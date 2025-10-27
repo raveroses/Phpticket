@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Twig Test</title>
-<link rel="stylesheet" href="public/css/app.css">
-</head>
-<body>
-     {% include 'components/navbar.html.twig' %}
+{% extends "base.html.twig" %}
+   {% block title %}Home{% endblock%}
+   {% block content %}
      {% include 'components/herosection.html.twig' %}
-     {% include 'components/footer.html.twig' %}
-     
-</body>
-</html>
+     {% endblock %}
