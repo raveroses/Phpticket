@@ -19,11 +19,14 @@
 
         <div class="creation">
         <div id="ticketCreationDiv">
-{% include 'components/ticketcreation.html.twig' %}
+{% include 'components/ticketcreation.html.twig' %} 
         </div>
-        <div id="ticketListDiv">
-{% include 'components/ticketlist.html.twig' %}
-</div>
+
+
+        
+       <div id="ticketListDiv">
+       <div class="ticket-list-container"></div>
+       </div>
         </div>
       </div>
 
@@ -33,6 +36,7 @@
 
     <script> 
  
+
  const sidebardetails=[
   { 
      icon: '<i class="fa-solid fa-list-check"></i>',
@@ -49,7 +53,16 @@
   ]
 
 
+
   
+
+
+
+
+
+
+
+
 const inputValue= document.querySelectorAll("form div input");
 const createBtn= document.querySelector("#createBtn")
 const selectValue= document.querySelector("form div select")
@@ -72,10 +85,6 @@ let ticketCreation ={
 
 
 
-
-
-
-
   const handleTicketCreation = () => {
  
     if (
@@ -91,13 +100,13 @@ let ticketCreation ={
 
     if (editIndex !== null) {
       updatedList = ticketCreationList.map((ticket, index) =>
-        index === editIndex ? ticketCreation : ticket
+        index === editIndex ? { ...ticketCreation } : ticket
       );
       editIndex= null;
       alert("Ticket updated successfully");
     } else {
-
       updatedList = [...ticketCreationList, ticketCreation];
+      alert("Ticket created successfully")
 
     }
     localStorage.setItem("ticketListStore", JSON.stringify(updatedList));
@@ -107,9 +116,24 @@ let ticketCreation ={
       description: "",
       status: "",
     };
+
+    
+    inputValue.forEach(input => input.value = "");
+selectValue.value = "";
+ 
+  isOpen = " Ticket List"; 
+  renderTab();
   };
 
+
+
+
+
+
 console.log(ticketCreationList)
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const createBtn = document.querySelector("#createBtn");
   createBtn.addEventListener("click", handleTicketCreation);
@@ -130,14 +154,17 @@ const handleDelete = (value) => {
     alert("Ticket Deleted successfully");
     ticketCreationList= updatedList;
     localStorage.setItem("ticketListStore", JSON.stringify(updatedList));
+      renderTicketList()
   };
 
   const handleEdit = (index) => {
     const ticketToEdit = ticketCreationList[index];
     alert("Ticket Edited successfully");
-    ticketCreation= ticketToEdit;
+    ticketCreation= { ...ticketToEdit };
     editIndex= index;
   };
+
+    renderTicketList()
 
  
   const safeList = Array.isArray(ticketCreationList) ? ticketCreationList : [];
@@ -159,6 +186,9 @@ const handleDelete = (value) => {
 
 // 
 
+
+
+
 // Sidebar container
 const sidebarContainer = document.querySelector(".sidebar-components");
 
@@ -173,12 +203,12 @@ function renderTab() {
   if (isOpen === "Create Ticket") {
     ticketCreationDiv.style.display = "block";
     ticketListDiv.style.display = "none";
-  } else {
+  } else if(isOpen === " Ticket List"){ 
     ticketCreationDiv.style.display = "none";
     ticketListDiv.style.display = "block";
+    renderTicketList(); 
   }
 }
-
 renderTab();
 
 
@@ -215,6 +245,65 @@ sidebardetails.forEach((item) => {
   sidebarContainer.appendChild(div);
 });
 
+
+
+
+
+
+function renderTicketList() {
+  const ticketListContainer = document.querySelector(".ticket-list-container");
+  
+   if (!ticketListContainer) {
+    console.error("ticket-list-container not found");
+    return;
+  }
+
+  ticketListContainer.innerHTML = ""; 
+if (ticketCreationList.length === 0) {
+    ticketListContainer.innerHTML = "<p>No tickets available</p>";
+    return;
+  }
+  
+
+
+  ticketCreationList.forEach((ticket, index) => {
+    const ticketDiv = document.createElement("div");
+    ticketDiv.classList.add("ticket-list");
+    ticketDiv.innerHTML = `
+      <h2>${ticket.title}</h2>
+      <p>${ticket.description}</p>
+      <p>
+        Status: <span class="status-badge status-${ticket.status}">
+          ${ticket.status.replace('_', ' ')}
+        </span>
+      </p>
+      <div class="actn-btn">
+        <button class="edit" data-index="${index}">Edit</button>
+        <button class="delete" data-title="${ticket.title}">Delete</button>
+      </div>
+    `;
+    ticketListContainer.appendChild(ticketDiv);
+  });
+  
+
+  attachEventListeners();
+}
+
+function attachEventListeners() {
+  document.querySelectorAll(".edit").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const index = parseInt(btn.dataset.index);
+      handleEdit(index);
+    });
+  });
+
+  document.querySelectorAll(".delete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const title = btn.dataset.title;
+      handleDelete(title);
+    });
+  });
+}
 
     
     </script>
