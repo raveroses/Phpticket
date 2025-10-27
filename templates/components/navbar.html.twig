@@ -1,30 +1,46 @@
+{% set isOpenModal = false %}
   <header>
-      <div className="logo">
+      <div class="logo">
         <h2>Diamond Ticket</h2>
       </div>
 
- <nav class="navbars ">
+ <nav class="navbars-big ">
         <a href="/index.php?page=login">Login</a>
         <a href="/index.php?page=signup">Get Started</a>
         <a href="/index.php?page=dashboard">Dashboard</a>
-        <a href="#">Ticket Management screen</a>
+        <a href="/index.php?page=dashboard">Ticket Management screen</a>
     </nav>
 
 
-      {# <div style={{ display: isOpen ? "block" : "none" }}>
-        <nav className="navbar">
-          <h2 onClick={handleClose}>
-            <FaTimes />
+
+      <div style="display: {{ isOpenModal ? 'block' : 'none' }}">
+        <nav class="navbar-small">
+          <h2 class="cancel">
+       <i class="fa-solid fa-circle-xmark"></i>
           </h2>
-          <Link to={"/login"}>Login</Link>
-          <Link to="/signup"> Get Started</Link>
-          <Link to={"/dashboard"}>Dashboard</Link>
-          <Link to={"#"}>Ticket Management screen</Link>
+              <a href="/index.php?page=login">Login</a>
+        <a href="/index.php?page=signup">Get Started</a>
+        <a href="/index.php?page=dashboard">Dashboard</a>
+        <a href="/index.php?page=dashboard">Ticket Management screen</a>
         </nav>
-      </div> #}
+      </div>
 
       {# <div className="hamburger" onClick={handleOpen}>  #}
       <div class="hamburger"> 
         <i class="fa-solid fa-bars"></i>
       </div>
     </header>
+
+
+    <script>
+    const isOpenModal= false;
+
+    const hamburger= document.querySelector(".hamburger").addEventListener("click",()=>{
+      isOpenModal= true
+    })
+
+    const times= document.querySelector("cancel").addEventListener("click",()=>{
+      isOpenModal=false
+    })
+    
+    </script>

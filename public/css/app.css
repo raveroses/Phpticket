@@ -127,12 +127,12 @@ header {
   gap: 400px;
 }
 
-.navbars {
+.navbars-big {
   display: flex;
   gap: 30px;
 }
 
-.navbars a {
+.navbars-big a {
   color: white;
   font-size: 15px;
   text-decoration: none;
@@ -291,9 +291,14 @@ header {
 .hamburger {
   display: none;
 }
-.navbar h2 {
+.navbar-small h2 {
   display: none;
 }
+
+.navbar-small {
+  display: none;
+}
+
 @media (max-width: 800px) {
   body {
     padding: 30px 10px;
@@ -301,11 +306,12 @@ header {
   header {
     position: relative;
   }
-  .navbars {
+
+  .navbars-big {
     display: none;
   }
 
-  .navbar {
+  .navbar-small {
     position: absolute;
     top: 100px;
     flex-direction: column;
@@ -317,10 +323,10 @@ header {
     display: flex;
     gap: 30px;
   }
-  .navbar h2 {
+  .navbar-small h2 {
     display: block;
   }
-  .navbar a {
+  .navbar-small a {
     font-size: 20px;
     color: white;
     text-decoration: none;
@@ -336,7 +342,7 @@ header {
   .hero-section {
     flex-direction: column;
     height: 820px;
-    padding: 10px 0px;
+    padding: 10px 10px;
     gap: 0;
   }
   .hero-section .circle {
@@ -407,6 +413,20 @@ header {
 
   .creation {
     margin-top: 100px;
+  }
+
+  .btns {
+    gap: 30px;
+    justify-content: center;
+  }
+  .btns button {
+    width: 160px;
+  }
+  .texts {
+    padding-bottom: 100px;
+  }
+  .hero-section div img {
+    height: 369px;
   }
 }
 
