@@ -227,7 +227,7 @@ sidebardetails.forEach((item) => {
   div.setAttribute("data-tab", item.names);
 
   div.innerHTML = `
-    <div class="sidebar-flex" style="${item.names === 'Log out' ? 'margin-top:20px; color:white; background-color:red; border:none;' : ''}">
+    <div class="sidebar-flex" style="${item.names === 'Log out' ? 'margin-top:0px; color:white; background-color:red; border:none;' : ''}">
       <div class="icon">${item.icon}</div>
       <h3>${item.names}</h3>
     </div>

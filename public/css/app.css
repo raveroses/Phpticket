@@ -305,6 +305,7 @@ header {
   }
   header {
     position: relative;
+    gap: 0;
   }
 
   .navbars-big {
@@ -397,11 +398,14 @@ header {
     padding: 0px 7px;
     width: 125px;
     height: 60px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: lighter;
     margin: 0;
   }
 
+  .sidebar-flex h3{
+    margin: 0;
+  }
   .signupForm input {
     width: 100%;
     max-width: 100%;
@@ -411,6 +415,9 @@ header {
   .signupForm select {
     width: 100%;
   }
+
+
+
 
   .creation {
     margin-top: 100px;

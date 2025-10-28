@@ -1,4 +1,4 @@
-{% set isOpenModal = false %}
+{% set isOpenModal= false %}
   <header>
       <div class="logo">
         <h2>Diamond Ticket</h2>
@@ -13,7 +13,7 @@
 
 
 
-      <div style="display: {{ isOpenModal ? 'block' : 'none' }}">
+      <div class="navs">
         <nav class="navbar-small">
           <h2 class="cancel">
        <i class="fa-solid fa-circle-xmark"></i>
@@ -33,14 +33,24 @@
 
 
     <script>
-    const isOpenModal= false;
+    const hamburger = document.querySelector(".hamburger");
+  const mobileMenu = document.querySelector(".navs");
+  const cancelBtn = document.querySelector(".cancel");
 
-    const hamburger= document.querySelector(".hamburger").addEventListener("click",()=>{
-      isOpenModal= true
-    })
+  let isOpenModal = false;
 
-    const times= document.querySelector("cancel").addEventListener("click",()=>{
-      isOpenModal=false
-    })
-    
+  mobileMenu.style.display= "none"
+
+  hamburger.addEventListener("click", () => {
+    isOpenModal = !isOpenModal;
+    console.log("Hamburger clicked");
+    mobileMenu.style.display = isOpenModal ? "block" : "none";
+  });
+
+  cancelBtn?.addEventListener("click", () => {
+    isOpenModal = false;
+    mobileMenu.style.display = "none";
+  });
+
+
     </script>
